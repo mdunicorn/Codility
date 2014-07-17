@@ -5,17 +5,25 @@ function solution(N, A) {
     for (i = 0; i < N; i++)
         counters[i] = 0;
     var max = 0;
+    var lastMax = 0;
     for (i = 0; i < A.length; i++) {
         var op = A[i];
         if(op <= N) {
             op--;
-            counters[op]++;
-            if(counters[op] > max)
-                max = counters[op];
+            var c = counters[op];
+            if( c < lastMax )
+                c = lastMax + 1;
+            else
+                ++c;
+            counters[op] = c;
+            if(c > max)
+                max = c;
         } else {
-            for ( j = 0; j < N; j++)
-                counters[j] = max;
+            lastMax = max;
         }
     }
+    for (i = 0; i < counters.length; i++)
+        if(counters[i] < lastMax)
+            counters[i] = lastMax;
     return counters;
 }
