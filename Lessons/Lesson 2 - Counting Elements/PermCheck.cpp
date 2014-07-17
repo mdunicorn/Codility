@@ -2,12 +2,14 @@
 int solution(vector<int> &A) {
 	int n = A.size();
 	vector<bool> exists(n, false);
-	for (int i = 0; i < n; i++) {
-		if ( A[i] > n )
+	for(vector<int>::iterator it = A.begin(); it != A.end(); it++) {
+		if(*it > n)
 			return false;
-		if (exists[A[i]])
+		if(*it < 1)
 			return false;
-		exists[A[i]] = true;
+		if(exists[*it-1])
+			return false;
+		exists[*it-1] = true;
 	}
-	return true;    
+	return true;
 }
